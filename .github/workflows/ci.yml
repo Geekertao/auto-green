@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 0,4,8,12,16,20 */2 * *"
+    - cron: "0 0,4,8,12,16,20 * * *"  # 每天都触发
 
 jobs:
   autogreen:
@@ -14,11 +14,80 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Auto green
+      - name: Check Dates
+        id: check_dates
         run: |
-          git config --local user.email "sunlianglang@gmail.com"
-          git config --local user.name "Geekertao"
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git pull --rebase
-          git commit --allow-empty -m "a commit a day keeps your girlfriend away"
-          git push
+          # 获取当前日期 (YYYY-MM-DD)
+          TODAY=$(date +%Y-%m-%d)
+
+          # 判断今天是奇数日还是偶数日 (用于确定是否是 "推送日")
+          DAY=$(date +%d)
+          if [[ $((DAY % 2)) -eq 0 ]]; then
+            echo "is_push_day=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_push_day=false" >> $GITHUB_OUTPUT
+          fi
+
+          # 生成随机数 (用于模拟 "不提交日")
+          RANDOM_NUMBER=$((RANDOM % 31 + 1))  # 1 到 31 之间的随机数
+
+          # 从环境变量中读取 "不提交日" 列表 (如果存在)
+          NO_COMMIT_DAYS="${{ env.NO_COMMIT_DAYS }}"
+
+          # 如果当前月份的 "不提交日" 列表不存在，则生成新的列表
+          if [[ -z "$NO_COMMIT_DAYS" ]]; then
+            NO_COMMIT_DAYS=""
+            for i in {1..3}; do
+              while true; do
+                RANDOM_DAY=$((RANDOM % 31 + 1))
+                if [[ ! " $NO_COMMIT_DAYS " =~ " $RANDOM_DAY " ]]; then
+                  NO_COMMIT_DAYS+="$RANDOM_DAY "
+                  break
+                fi
+              done
+            done
+            echo "NO_COMMIT_DAYS=$NO_COMMIT_DAYS" >> $GITHUB_ENV  # 设置环境变量
+          fi
+
+          # 获取当天的日期 (没有年份)
+          DAY_OF_MONTH=$(date +%d)
+
+          # 检查今天是否是 "不提交日"
+          if [[ " $NO_COMMIT_DAYS " =~ " $DAY_OF_MONTH " ]]; then
+            echo "is_no_commit_day=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_no_commit_day=false" >> $GITHUB_OUTPUT
+          fi
+
+          echo "NO_COMMIT_DAYS: $NO_COMMIT_DAYS"
+          echo "Today is No Commit Day: ${{ steps.check_dates.outputs.is_no_commit_day }}"
+          echo "Today is Push Day: ${{ steps.check_dates.outputs.is_push_day }}"
+
+      - name: Auto green (5 Commits)
+        if: steps.check_dates.outputs.is_push_day == 'true' && steps.check_dates.outputs.is_no_commit_day == 'false'
+        run: |
+          for i in {1..5}; do
+            git config --local user.email "sunlianglang@gmail.com"
+            git config --local user.name "Geekertao"
+            git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+            git pull --rebase
+            git commit --allow-empty -m "a commit $i/5 (Push Day)"
+            git push
+          done
+
+      - name: Auto green (2 Commits)
+        if: steps.check_dates.outputs.is_push_day == 'false' && steps.check_dates.outputs.is_no_commit_day == 'false'
+        run: |
+          for i in {1..2}; do
+            git config --local user.email "sunlianglang@gmail.com"
+            git config --local user.name "Geekertao"
+            git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+            git pull --rebase
+            git commit --allow-empty -m "a commit $i/2 (Non-Push Day)"
+            git push
+          done
+
+      - name: Auto green (No Commit)
+        if: steps.check_dates.outputs.is_no_commit_day == 'true'
+        run: |
+          echo "Today is a No Commit Day. Skipping commits."
