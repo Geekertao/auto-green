@@ -1,5 +1,5 @@
 # auto-green
-### 修改自<https://github.com/justjavac/auto-green>（已删库）[修改的地方](https://github.com/Geekertao/auto-green/README.md#%E4%BF%AE%E6%94%B9%E7%9A%84%E5%9C%B0%E6%96%B9)
+### 修改自<https://github.com/justjavac/auto-green>（已删库）[修改的地方](https://github.com/Geekertao/auto-green/blob/main/README.md#%E4%BF%AE%E6%94%B9%E7%9A%84%E5%9C%B0%E6%96%B9)
 
 [![Build Status](https://github.com/Geekertao/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/Geekertao/auto-green/actions)
 
