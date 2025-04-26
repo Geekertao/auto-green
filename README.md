@@ -1,5 +1,5 @@
 # auto-green
-### 修改自<https://github.com/justjavac/auto-green>（已删库）
+### 修改自<https://github.com/justjavac/auto-green>（已删库）[修改的地方](https://github.com/Geekertao/auto-green/edit/main/README.md#%E4%BF%AE%E6%94%B9%E7%9A%84%E5%9C%B0%E6%96%B9)
 
 [![Build Status](https://github.com/Geekertao/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/Geekertao/auto-green/actions)
 
@@ -18,11 +18,10 @@
 ## 使用
 
 - 点右上角 **Use this template** 按钮复制本 GitHub 仓库，**:warning: 千万不要 Fork，因为 fork 项目的动态并不会让你变绿 :warning:**
-- 修改 [ci.yml 文件的第 68、69 行](https://github.com/Geekertao/auto-green/blob/master/.github/workflows/ci.yml#L69-L70) 为自己的 GitHub 账号和昵称
-- (可选) 你可以通过修改 [ci.yml 文件的第 81、82 行](/blob/master/.github/workflows/ci.yml#L83-L84)来调整提交日频率（第76行name也可修改，便于辨别其操作）
+- 修改 [ci.yml 文件的第 68、69 行](./.github/workflows/ci.yml#L69-L70) 为自己的 GitHub 账号和昵称
+- (可选) 你可以通过修改 [ci.yml 文件的第 81、82 行](./.github/workflows/ci.yml#L83-L84)来调整提交日频率（第76行name也可修改，便于辨别其操作）
 - （可选）少提交日也可修改，同上，不提交日修改见下方或[ci.yml](./.github/workflows/ci.yml)的注释。
 
-计划任务语法有 5 个字段，中间用空格分隔，每个字段代表一个时间单位。
 
 > git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
