@@ -18,9 +18,9 @@
 ## 使用
 
 - 点右上角 **Use this template** 按钮复制本 GitHub 仓库，**:warning: 千万不要 Fork，因为 fork 项目的动态并不会让你变绿 :warning:**
-- 修改 [ci.yml 文件的第 68、69 行](./.github/workflows/ci.yml#L69-L70) 为自己的 GitHub 账号和昵称
-- (可选) 你可以通过修改 [ci.yml 文件的第 81、82 行](./.github/workflows/ci.yml#L83-L84)来调整提交日频率（第76行name也可修改，便于辨别其操作）
-- （可选）少提交日也可修改，同上，不提交日修改见下方或[ci.yml](./.github/workflows/ci.yml)的注释。
+- 修改 [ci.yml 文件的第 63、64 行](./.github/workflows/ci.yml#L63-L64) 为自己的 GitHub 账号和昵称
+- (可选) 你可以通过修改 [ci.yml 文件的第 81、82 行](./.github/workflows/ci.yml#L77-L78)来调整提交日频率（第70行name也可修改，便于辨别其操作）
+- （可选）少提交日也可修改，同上，不提交日修改见[ci.yml](./.github/workflows/ci.yml)的注释。
 
 
 > git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
