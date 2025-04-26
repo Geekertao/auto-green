@@ -63,14 +63,22 @@ jobs:
           echo "Today is No Commit Day: ${{ steps.check_dates.outputs.is_no_commit_day }}"
           echo "Today is Push Day: ${{ steps.check_dates.outputs.is_push_day }}"
 
+      - name: Set Git User Config
+        run: |
+          GIT_USER_EMAIL="sunlianglang@gmail.com"
+          GIT_USER_NAME="Geekertao"
+
+          echo "GIT_USER_EMAIL=$GIT_USER_EMAIL" >> $GITHUB_ENV
+          echo "GIT_USER_NAME=$GIT_USER_NAME" >> $GITHUB_ENV
+
       - name: Auto green (5 Commits)
         if: steps.check_dates.outputs.is_push_day == 'true' && steps.check_dates.outputs.is_no_commit_day == 'false'
         run: |
+          git config --local user.email "${{ env.GIT_USER_EMAIL }}"
+          git config --local user.name "${{ env.GIT_USER_NAME }}"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase
           for i in {1..5}; do
-            git config --local user.email "sunlianglang@gmail.com"
-            git config --local user.name "Geekertao"
-            git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-            git pull --rebase
             git commit --allow-empty -m "a commit $i/5 (Push Day)"
             git push
           done
@@ -78,11 +86,11 @@ jobs:
       - name: Auto green (2 Commits)
         if: steps.check_dates.outputs.is_push_day == 'false' && steps.check_dates.outputs.is_no_commit_day == 'false'
         run: |
+          git config --local user.email "${{ env.GIT_USER_EMAIL }}"
+          git config --local user.name "${{ env.GIT_USER_NAME }}"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git pull --rebase
           for i in {1..2}; do
-            git config --local user.email "sunlianglang@gmail.com"
-            git config --local user.name "Geekertao"
-            git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-            git pull --rebase
             git commit --allow-empty -m "a commit $i/2 (Non-Push Day)"
             git push
           done
