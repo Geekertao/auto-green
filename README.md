@@ -1,11 +1,11 @@
 # auto-green
 ### 修改自<https://github.com/justjavac/auto-green>（已删库）[修改的地方](https://github.com/Geekertao/auto-green/blob/main/README.md#%E4%BF%AE%E6%94%B9%E7%9A%84%E5%9C%B0%E6%96%B9)
 
-[![Build Status](https://github.com/Geekertao/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/Geekertao/auto-green/actions)
+[![Build Status](https://github.com/Geekertao/auto-green/workflows/ci/badge.svg?branch=main](https://github.com/Geekertao/auto-green/actions)
 
 自动保持 GitHub 提交状态常绿。
 
-> a commit a day keeps your girlfriend away.
+> a commit 1 天之前 keeps your girlfriend away.
 
 ## 原理
 
@@ -38,3 +38,8 @@
 ## License
 
 [auto-green](https://github.com/Geekertao/auto-green) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.
+
+# 赞助
+<a href="https://afdian.com/a/Geekertao" target="_blank" rel="noopener noreferrer" style="flex-shrink: 0;">
+      <img src="https://img.shields.io/badge/💵_爱发电-FF4D4D?style=flat-square&logo=usd&logoColor=white" alt="爱发电" style="max-height: 28px;">
+    </a>
